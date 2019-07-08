@@ -1,0 +1,8 @@
+def find_last(text,word):
+    pos1=text.find(word)
+    if pos1==-1:
+        return pos1
+    while text.find(word,pos1+1)!=-1:
+        text.find(word,pos1+1)
+        pos1=text.find(word,pos1+1)
+    return text.find(word,pos1)    
