@@ -1,0 +1,2 @@
+def udacify(word):
+    return 'U'+word
