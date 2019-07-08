@@ -1,0 +1,11 @@
+def fix_machine(debris,product):
+    n=0
+    while True:
+        if n<len(product):
+            debris.find(product[n])
+            if debris.find(product[n])==-1:
+                return "Give me something that's not useless next time."
+            n=n+1
+        else:
+            break
+    return product  
