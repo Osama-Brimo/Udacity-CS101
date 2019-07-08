@@ -1,0 +1,14 @@
+def stamps(n):
+    fp=0
+    tp=0
+    op=0
+    while n>=5:
+        n=n-5
+        fp=fp+1
+    while n>=2:
+        n=n-2
+        tp=tp+1
+    while n>0:
+        n=n-1
+        op=op+1
+    return fp,tp,op  
