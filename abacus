@@ -1,0 +1,13 @@
+def print_abacus(value):
+    n=0
+    rows=10-len(str(value))
+    while rows!=0:
+        print '|00000*****   |'
+        rows=rows-1
+    while n!=len(str(value)):
+        if int(str(value)[n])==0:
+            print '|00000*****   |'
+        else:
+            print '|'+abacus_row[:-int(str(value)[n])] + '   '+abacus_row[-int(str(value)[n]):]+'|'
+        n=n+1
+    return  ''
