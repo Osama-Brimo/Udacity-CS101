@@ -1,0 +1,6 @@
+def is_friend(name):
+    if name[0] == 'N':
+        return True
+    if name[0] == 'D':
+        return True
+    return False 
