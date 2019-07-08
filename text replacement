@@ -1,0 +1,5 @@
+markerfinder=line.find(marker)
+back=line[:markerfinder]
+front=line[markerfinder+len(marker):]
+
+replaced = back+replacement+front
