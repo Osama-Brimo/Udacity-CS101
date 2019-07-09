@@ -1,53 +1,92 @@
-def month_days(month):
-    if month==1 or month==3 or month==5 or month==7 or month==8 or month==10 or month==12:
-        return 31
-    if month!=2:
-        return 30
-    else:
-        return 28
-        
-        
-def to_date(target_month,days):
-    n=1
-    total=0
-    while n<target_month:
-        total=total+month_days(n)
-        n=n+1
-    return total+days-1   
+# Credit goes to Websten from forums
+#
+# Use Dave's suggestions to finish your daysBetweenDates
+# procedure. It will need to take into account leap years
+# in addition to the correct number of days in each month.
+
+def month_stub(month):
+    return 30
 
 def leap_check(year):
-    leapdays=0
-    if year % 4!=0:
-        leapdays=leapdays+0
+    assert year>=1582
+    if year %4!=0:
+        return False
     else:
-        if year % 100!=0:
-            leapdays=leapdays+1
+        if year %100!=0:
+            return True
         else:
-            if year % 400!=0:
-                leapdays=leapdays-1
+            if year%400!=0:
+                return False
             else:
-                leapdays=leapdays+1
-    return leapdays     
+                return True
+    
+def days_in_month(month,year):
+    assert month<=12 and year>=1582
+    if month==1 or month==3 or month==5 or month==7 or month==8 or month==10 or month==12:
+        return month_stub(month)+1
+    else:
+        if month==2 and leap_check(year)==False:
+            return month_stub(month)-2
+        else:
+            if month==2 and leap_check(year)==True:
+              return month_stub(month)-1
+
+    return month_stub(month)
+
+
+def nextDay(year, month, day):
+    assert month<=12 and year>=1582
+    """Simple version: assume every month has 30 days"""
+    if day < days_in_month(month,year):
+        return year, month, day + 1
+    else:
+        if month == 12:
+            return year + 1, 1, 1
+        else:
+            return year, month + 1, 1
+print nextDay(2012,2,28)
+
+        
+def dateIsBefore(year1, month1, day1, year2, month2, day2):
+    assert month1<=12 and year1>=1582 and month2<=12 and year2>=1582
+    """Returns True if year1-month1-day1 is before year2-month2-day2. Otherwise, returns False."""
+    if year1 < year2:
+        return True
+    if year1 == year2:
+        if month1 < month2:
+            return True
+        if month1 == month2:
+            return day1 < day2
+    return False  
+    
 
 def daysBetweenDates(year1, month1, day1, year2, month2, day2):
-    num_years=year2-year1
-    num_years_days=num_years*365
-    num_days=num_years_days-to_date(month1,day1)+to_date(month2,day2)
-    y1=year1
-    y2=year2
-    leap_days=0
-    while y1<=y2:
-        if leap_check(y1)==1:
-            leap_days=leap_days+1
-        y1=y1+1
-    if leap_check(year1)==1 and month1==2 and day1==29:
-        leap_days=leap_days-1
-    else:
-        if leap_check(year1)==1 and month1>3:
-            leap_days=leap_days-1
-    if leap_check(year2)==1 and month2==2 and day2<29:
-        leap_days=leap_days-1
-    else:
-        if leap_check(year2)==1 and month2<2:
-            leap_days=leap_days-1
-    return num_days+leap_days
+    """Returns the number of days between year1/month1/day1
+       and year2/month2/day2. Assumes inputs are valid dates
+       in Gregorian calendar."""
+    # program defensively! Add an assertion if the input is not valid!
+    assert month1<=12 and year1>=1582 and month2<=12 and year2>=1582
+    assert not dateIsBefore(year2, month2, day2, year1, month1, day1)
+    days = 0
+    while dateIsBefore(year1, month1, day1, year2, month2, day2):
+        year1, month1, day1 = nextDay(year1, month1, day1)
+        days += 1
+    return days
+    
+print daysBetweenDates(2011,6,30,2012,6,30)    
+
+def test():
+    test_cases = [((2012,1,1,2012,2,28), 58), 
+                  ((2012,1,1,2012,3,1), 60),
+                  ((2011,6,30,2012,6,30), 366),
+                  ((2011,1,1,2012,8,8), 585 ),
+                  ((1900,1,1,1999,12,31), 36523)]
+    
+    for (args, answer) in test_cases:
+        result = daysBetweenDates(*args)
+        if result != answer:
+            print "Test with data:", args, "failed"
+        else:
+            print "Test case passed!"
+
+test()
