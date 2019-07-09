@@ -1,0 +1,53 @@
+def month_days(month):
+    if month==1 or month==3 or month==5 or month==7 or month==8 or month==10 or month==12:
+        return 31
+    if month!=2:
+        return 30
+    else:
+        return 28
+        
+        
+def to_date(target_month,days):
+    n=1
+    total=0
+    while n<target_month:
+        total=total+month_days(n)
+        n=n+1
+    return total+days-1   
+
+def leap_check(year):
+    leapdays=0
+    if year % 4!=0:
+        leapdays=leapdays+0
+    else:
+        if year % 100!=0:
+            leapdays=leapdays+1
+        else:
+            if year % 400!=0:
+                leapdays=leapdays-1
+            else:
+                leapdays=leapdays+1
+    return leapdays     
+
+def daysBetweenDates(year1, month1, day1, year2, month2, day2):
+    num_years=year2-year1
+    num_years_days=num_years*365
+    num_days=num_years_days-to_date(month1,day1)+to_date(month2,day2)
+    y1=year1
+    y2=year2
+    leap_days=0
+    while y1<=y2:
+        if leap_check(y1)==1:
+            leap_days=leap_days+1
+        y1=y1+1
+    if leap_check(year1)==1 and month1==2 and day1==29:
+        leap_days=leap_days-1
+    else:
+        if leap_check(year1)==1 and month1>3:
+            leap_days=leap_days-1
+    if leap_check(year2)==1 and month2==2 and day2<29:
+        leap_days=leap_days-1
+    else:
+        if leap_check(year2)==1 and month2<2:
+            leap_days=leap_days-1
+    return num_days+leap_days
