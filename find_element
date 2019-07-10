@@ -1,0 +1,7 @@
+def find_element(p,target):
+    pos=0
+    for x in p:
+        if str(x).find(str(target))!=-1:
+            return pos
+        pos=pos+1 
+    return str(x).find(str(target))
