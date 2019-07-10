@@ -1,0 +1,5 @@
+def find_element(p,t):
+    if t in p:
+        return p.index(t)
+    else:
+        return -1
