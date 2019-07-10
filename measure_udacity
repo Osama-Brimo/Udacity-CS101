@@ -1,0 +1,6 @@
+def measure_udacity(p):
+    result=0
+    for x in p:
+        if x[0]=='U':
+            result=result+1
+    return result  
