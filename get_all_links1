@@ -1,0 +1,11 @@
+def get_all_links(text):
+    start_link=text.find('"',text.find('<a href='))
+    end_link=text.find('"',start_link+1)
+    links=[]
+    while start_link!=-1:
+        links=links+[text[start_link+1:end_link]]
+        text=text[end_link+1:]
+        start_link=text.find('"',text.find('<a href='))
+        end_link=text.find('"',start_link+1)
+    return links    
+        
