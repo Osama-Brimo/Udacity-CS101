@@ -1,0 +1,5 @@
+def sum_list(n):
+    answer=0
+    for x in n:
+     answer=answer+x
+    return answer
