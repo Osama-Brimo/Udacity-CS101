@@ -29,15 +29,8 @@ def crawl_web(seed):
     crawled=[]
     while to_crawl!=[]:
         page=to_crawl.pop()
-        if page in crawled:
-            None 
-        else:
+        if page not in to_crawl:
             to_crawl=get_all_links(get_page(page))+to_crawl
             crawled.append(page)
     return crawled   
         
-        
-        
-        
-#print get_all_links(get_page("http://xkcd.com/353")) + get_all_links(get_page("http://xkcd.com/554"))       
-
