@@ -107,7 +107,7 @@ def get_all_links(page):
             break
     return links
     
-#Took 3 days to until it occured to me to do it like this... previous attempts were monstrous#
+#Took 3 days until it occured to me to do it like this... previous attempts were monstrous#
 
 
 def crawl_web(seed,max_depth): 
