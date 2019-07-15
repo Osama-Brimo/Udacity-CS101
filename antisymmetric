@@ -1,0 +1,69 @@
+# By Dimitris_GR from forums
+# Modify Problem Set 31's (Optional) Symmetric Square to return True 
+# if the given square is antisymmetric and False otherwise. 
+# An nxn square is called antisymmetric if A[i][j]=-A[j][i] 
+# for each i=0,1,...,n-1 and for each j=0,1,...,n-1.
+
+def vert_square(square):
+    new_row=[]
+    new_square=[]
+    i=0
+    while i!=len(square):
+        for row in square:
+            new_row.append(row[i])
+        new_square.append(new_row)
+        new_row=[]
+        i+=1
+    return new_square
+    
+def valid_square(p):
+    i=0
+    while i!=len(p):
+        if len(p[0])!=len(p[i]):
+            return False
+        i+=1
+    if len(p[0])==1:
+        return False
+    for x in p:
+        for n in x:
+            if type(n) not in (int,float):
+                return False
+    return True        
+
+#this seems correct for all cases as far as i can tell, but i get 'There was an error running your function' when i submit. moved on.
+
+def antisymmetric(A):
+    negative=[]
+    if valid_square(A)==False:
+        return False
+    for row in A:
+        newrow=[i*-1 for i in row]
+        negative.append(newrow)
+    return negative == vert_square(A)
+
+# Test Cases:
+
+print antisymmetric([[0, 1, 2], 
+                     [-1, 0, 3], 
+                     [-2, -3, 0]])   
+#>>> True
+
+print antisymmetric([[0, 0, 0],
+                     [0, 0, 0],
+                     [0, 0, 0]])
+#>>> True
+
+print antisymmetric([[0, 1, 2], 
+                     [-1, 0, -2], 
+                     [2, 2,  3]])
+#>>> False
+
+print antisymmetric([[1, 2, 5],
+                     [0, 1, -9],
+                     [0, 0, 1]])
+#>>> False
+
+print antisymmetric([[1],
+                    [-1]])
+
+print valid_square([['teehee','teehee'],['hoohoo','teehee'],['haha','teehee'],['hehe','teehee']])
