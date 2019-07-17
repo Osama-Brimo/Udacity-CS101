@@ -92,11 +92,9 @@ def check_sudoku(square):
                 return False
         for n in countdown(row):
             if n not in row:
-                print row
                 return False
         for n in row:
             if str(row)[str(row).find(str(n))+1:].find(str(n)) != -1:
-                print row
                 return False
     return True        
         
