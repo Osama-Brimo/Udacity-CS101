@@ -1,0 +1,42 @@
+# Define a function, hash_string,
+# that takes as inputs a keyword
+# (string) and a number of buckets,
+# and returns a number representing
+# the bucket for that keyword.
+
+def hash_string(keyword,buckets):
+    word_ord=0
+    for letter in list(keyword):
+        word_ord+=ord(letter)
+    return word_ord%buckets
+
+def get_page(url):
+    import urllib
+    return urllib.urlopen(url).read()
+
+def hash_test(func,keys,size):
+    result=[0]*size
+    keys_used=[]
+    for word in keys:
+        if word not in keys_used:
+            hv=func(word,size)
+            result[hv]+=1
+            word.append(keys_used)
+    return result
+    
+print hash_test(hash_string,get_page('http://www.gutenberg.org/cache/epub/600/pg600.txt').split(),26)        
+
+print hash_string('a',12)
+#>>> 1
+
+print hash_string('b',12)
+#>>> 2
+
+print hash_string('a',13)
+#>>> 6
+
+print hash_string('au',12)
+#>>> 10
+
+print hash_string('udacity',12)
+#>>> 11
