@@ -1,0 +1,53 @@
+# Question 8: Longest Repetition
+
+# Define a procedure, longest_repetition, that takes as input a 
+# list, and returns the element in the list that has the most 
+# consecutive repetitions. If there are multiple elements that 
+# have the same number of longest repetitions, the result should 
+# be the one that appears first. If the input list is empty, 
+# it should return None.
+
+def biggest_in_tally(tally):
+    winner=0
+    biggest=None
+    for x in tally:
+        if tally[x]>winner:
+            winner=tally[x]
+            biggest=x
+    return biggest
+
+def longest_repetition(p):
+    if not p:
+        return None
+    tally={}
+    y=None
+    for x in p:
+        if type(x) is list:
+            x=str(x)
+        if x in tally and x!=y:
+            tally[x]=1
+        if x not in tally:
+            tally[x]=1
+        if x==y:
+            tally[x]+=1
+        else:
+            y=x
+    return biggest_in_tally(tally)
+
+
+
+
+#For example,
+
+print longest_repetition([1, 2, 2, 3, 3, 3, 2, 2, 1])
+# 3
+
+print longest_repetition(['a', 'b', 'b', 'b', 'c', 'd', 'd', 'd'])
+# b
+
+print longest_repetition([[1], [2, 2], [2, 2], [2, 2], [3, 3, 3]])
+# 1
+
+print longest_repetition([])
+# None
+
