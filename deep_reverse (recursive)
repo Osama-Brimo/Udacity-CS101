@@ -12,7 +12,10 @@
 
 def is_list(p):
     return isinstance(p, list)
-    
+
+
+#looks like a nice little quick solution, but it took me 4 hours
+
 def deep_reverse(p):
     q=p[::-1]+[]
     for x in q:
